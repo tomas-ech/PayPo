@@ -1,28 +1,11 @@
-import React, { useState } from 'react'
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { colors } from '../../constants/colors';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useBills } from '../../components/context/BillsProvider';
+import { IBill } from '../../interfaces/Bills/IBill';
 import { BillItem } from '../../components/BillItem';
+import { colors } from '../../constants/colors';
 
 export const Home = () => {
-    const testData = [
-        {
-            name: 'Cuentas con Paposhis',
-            icon: '',
-            state: 'pending'
-        },
-        {
-            name: 'Cumple Valen V',
-            icon: '',
-            state: 'pending'
-        },
-        {
-            name: 'Cumple Vanesa',
-            icon: '',
-            state: 'solved'
-        },
-    ]
-
-    const [billData, setBillData] = useState(testData)
+    const { billData, setBillData } = useBills()
 
     return (
         <View style={styles.billsWrapper}>
@@ -35,20 +18,19 @@ export const Home = () => {
                 }
             </View>
             <View style={styles.homeFooter}>
-            <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={() => {
-                    const newData = [...billData, {
-                        name: 'Nueva cuenta',
-                        icon: '',
-                        state: 'pending'
-                    }]
+                <TouchableOpacity
+                    style={styles.buttonContainer}
+                    onPress={() => {
+                        const newData: IBill[] = [...billData, {
+                            name: 'Nueva cuenta',
+                            state: 'pending'
+                        }]
 
-                    setBillData(newData)
-                }}
-            >
-                <Text style={styles.buttonText}>+</Text>
-            </TouchableOpacity>
+                        setBillData(newData)
+                    }}
+                >
+                    <Text style={styles.buttonText}>+</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -59,6 +41,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 30,
         paddingHorizontal: 20,
+        height: '100%',
         // borderWidth: 2,
         // borderColor: 'blue',
     },
@@ -78,17 +61,17 @@ const styles = StyleSheet.create({
         // borderStyle: 'solid',
     },
     homeFooter: {
-        height: 100,
-        borderWidth: 2,
-        borderColor: 'orange',
+        height: 70,
+        // borderWidth: 2,
+        // borderColor: 'orange',
         flexDirection: 'row',
         // alignItems: 'center',
         justifyContent: 'center',
     },
     buttonContainer: {
         backgroundColor: colors.accent,
-        width: 40,
-        height: 40,
+        width: 60,
+        height: 60,
         borderWidth: 1,
         borderColor: colors.primary,
         borderRadius: 40,
